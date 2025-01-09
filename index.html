@@ -199,7 +199,7 @@
                 <div class="check-item"><input type="checkbox" id="inet-device-1"><label for="inet-device-1">Device connected</label></div>
                 <div class="check-item"><input type="checkbox" id="inet-dba-1"><label for="inet-dba-1">Dba Profile</label></div>
                 <div class="check-item"><input type="checkbox" id="inet-traffic-1"><label for="inet-traffic-1">Traffic di BNG</label></div>
-                <div class="check-item"><input type="checkbox" id="inet-ping-1"><label for="inet-ping-1">Ping Google</label></div>
+                <div class="check-item"><input type="checkbox" id="inet-ping-1"><label for="inet-ping-1">Ping ONT dan Upstream</label></div>
             </div>
 
             <div id="inet-down" class="checklist-container" style="display: none;">
@@ -207,9 +207,9 @@
                 <div class="check-item"><input type="checkbox" id="down-ip-1"><label for="down-ip-1">IP Address</label></div>
                 <div class="check-item"><input type="checkbox" id="down-redaman-1"><label for="down-redaman-1">Redaman ONT</label></div>
                 <div class="check-item"><input type="checkbox" id="down-device-1"><label for="down-device-1">Device connected</label></div>
-                <div class="check-item"><input type="checkbox" id="down-dba-1"><label for="down-dba-1">Dba Profile</label></div>
+                <div class="check-item"><input type="checkbox" id="down-wifi-1"><label for="down-wifi-1">Status Wifi Enable/ter-Reset </label></div>
                 <div class="check-item"><input type="checkbox" id="down-traffic-1"><label for="down-traffic-1">Traffic di BNG</label></div>
-                <div class="check-item"><input type="checkbox" id="down-ping-1"><label for="down-ping-1">Ping Google</label></div>
+                <div class="check-item"><input type="checkbox" id="down-ping-1"><label for="down-ping-1">Ping ONT dan Upstream</label></div>
             </div>
 
             <!-- Tombol Command -->
@@ -221,6 +221,9 @@
 
             <!-- Tombol Reset berada di bawah checklist -->
             <button class="reset-button" onclick="resetChecklist()">Reset</button>
+            
+            <!-- Tombol untuk Capture Screenshot -->
+            <button class="reset-button" onclick="captureScreen()">Capture Screen</button>
         </div>
 
         <!-- Bagian Bawah untuk Dua Notepad -->
@@ -242,6 +245,9 @@
         <span class="close" onclick="closeModal()">&times;</span>
         <img class="modal-content" id="modalImage">
     </div>
+
+    <!-- Import html2canvas dari CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
     <script>
         let checkedData = {
@@ -296,7 +302,7 @@
                 "down-ip": false,
                 "down-redaman": false,
                 "down-device": false,
-                "down-dba": false,
+                "down-wifi": false,
                 "down-traffic": false,
                 "down-ping": false
             };
@@ -318,7 +324,7 @@
                 "down-ip": ["ip address", "ip address inet", "inet ip","user ip address","ip", "IPAddr", "IPv4"],
                 "down-redaman": ["redaman", "rx", "tx", "dBm"],
                 "down-device": ["device connected", "connected device", "device", "device total", "perangkat", "terhubung", "2.4G", "5G", "LAN", "ETH", "associate"],
-                "down-dba": ["dba profile", "profile dba down"],
+                "down-wifi": ["dba profile", "profile dba down"],
                 "down-traffic": ["traffic di bng", "bng traffic", "trafik", "trafik BNG", "traffic", "speed", "bps", "kbyte/min"],
                 "down-ping": ["ping google", "ping test", "ping", "-c -b -m", "count 100", "rapid", "repeat", "round-trip"]
             };
@@ -332,6 +338,18 @@
                     checkbox.checked = false;
                 }
             }
+        }
+
+        // Capture screenshot using html2canvas
+        function captureScreen() {
+            html2canvas(document.body).then(function(canvas) {
+                // Convert canvas to image and display it in a modal or elsewhere
+                var img = canvas.toDataURL("image/png");
+                var modal = document.getElementById("myModal");
+                const modalImage = document.getElementById("modalImage");
+                modal.style.display = "block";
+                modalImage.src = img;
+            });
         }
     </script>
 
