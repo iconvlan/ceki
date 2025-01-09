@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +15,17 @@
             background-size: cover;
             color: white;
         }
+
         h1 {
             text-align: center;
             padding: 10px;
-            font-size: 1.3rem; /* Mengurangi ukuran font */
+            font-size: 1.3rem;
+            /* Mengurangi ukuran font */
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             margin-bottom: 10px;
         }
+
         .container {
             display: flex;
             flex-direction: column;
@@ -29,10 +33,12 @@
             padding: 15px;
             box-sizing: border-box;
         }
+
         .top-section {
             width: 100%;
             background-color: rgba(0, 0, 0, 0.6);
-            padding: 6px; /* Mengurangi padding agar lebih ringkas */
+            padding: 6px;
+            /* Mengurangi padding agar lebih ringkas */
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             margin-bottom: 10px;
@@ -45,6 +51,7 @@
             text-align: center;
             justify-content: center;
         }
+
         .check-item {
             margin-bottom: 8px;
             display: flex;
@@ -52,15 +59,17 @@
             align-items: center;
             white-space: nowrap;
         }
-        
+
         .check-item input {
             margin-right: 8px;
         }
+
         .button-container {
             display: flex;
             justify-content: space-evenly;
             margin-top: 15px;
         }
+
         .command-button {
             padding: 10px 16px;
             background-color: #4CAF50;
@@ -71,9 +80,11 @@
             font-size: 0.9rem;
             transition: background-color 0.3s ease;
         }
+
         .command-button:hover {
             background-color: #45a049;
         }
+
         .reset-button {
             padding: 10px 16px;
             background-color: #f44336;
@@ -84,21 +95,26 @@
             font-size: 0.9rem;
             margin-top: 15px;
         }
+
         .reset-button:hover {
             background-color: #e53935;
         }
+
         .bottom-section {
             display: flex;
             height: 100%;
             gap: 10px;
         }
+
         .notepad-column {
-            width: 50%; /* Adjusted width */
+            width: 50%;
+            /* Adjusted width */
             background-color: rgba(0, 0, 0, 0.6);
             padding: 10px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+
         .notepad {
             width: 100%;
             height: 100%;
@@ -152,30 +168,33 @@
         }
 
         /* Media Query untuk layar kecil */
-    @media (max-width: 768px) {
-        .notepad-column {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        .button-container {
-            flex-direction: column;
-        }
-    }
+        @media (max-width: 768px) {
+            .notepad-column {
+                width: 100%;
+                margin-bottom: 15px;
+            }
 
-    @media (max-width: 480px) {
-        h1 {
-            font-size: 1.2rem;
+            .button-container {
+                flex-direction: column;
+            }
         }
-        .container {
-            padding: 10px;
-        }
-        .checklist-container {
-            flex-direction: column;
-        }
-    }
 
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.2rem;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .checklist-container {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <h1>Checklist Pengecekan Jaringan</h1>
@@ -194,22 +213,34 @@
 
             <div id="inet-slow" class="checklist-container" style="display: none;">
                 <h2 style="font-size: 1.1rem;">Tiket: Inet Slow/Intermitten</h2>
-                <div class="check-item"><input type="checkbox" id="inet-ip-1"><label for="inet-ip-1">IP Address</label></div>
-                <div class="check-item"><input type="checkbox" id="inet-redaman-1"><label for="inet-redaman-1">Redaman ONT</label></div>
-                <div class="check-item"><input type="checkbox" id="inet-device-1"><label for="inet-device-1">Device connected</label></div>
-                <div class="check-item"><input type="checkbox" id="inet-dba-1"><label for="inet-dba-1">Dba Profile</label></div>
-                <div class="check-item"><input type="checkbox" id="inet-traffic-1"><label for="inet-traffic-1">Traffic di BNG</label></div>
-                <div class="check-item"><input type="checkbox" id="inet-ping-1"><label for="inet-ping-1">Ping Google</label></div>
+                <div class="check-item"><input type="checkbox" id="inet-ip-1"><label for="inet-ip-1">IP Address</label>
+                </div>
+                <div class="check-item"><input type="checkbox" id="inet-redaman-1"><label for="inet-redaman-1">Redaman
+                        ONT</label></div>
+                <div class="check-item"><input type="checkbox" id="inet-device-1"><label for="inet-device-1">Device
+                        connected</label></div>
+                <div class="check-item"><input type="checkbox" id="inet-dba-1"><label for="inet-dba-1">Dba
+                        Profile</label></div>
+                <div class="check-item"><input type="checkbox" id="inet-traffic-1"><label for="inet-traffic-1">Traffic
+                        di BNG</label></div>
+                <div class="check-item"><input type="checkbox" id="inet-ping-1"><label for="inet-ping-1">Ping ONT dan
+                        Upstream</label></div>
             </div>
 
             <div id="inet-down" class="checklist-container" style="display: none;">
                 <h2 style="font-size: 1.1rem;">Tiket: Inet Down</h2>
-                <div class="check-item"><input type="checkbox" id="down-ip-1"><label for="down-ip-1">IP Address</label></div>
-                <div class="check-item"><input type="checkbox" id="down-redaman-1"><label for="down-redaman-1">Redaman ONT</label></div>
-                <div class="check-item"><input type="checkbox" id="down-device-1"><label for="down-device-1">Device connected</label></div>
-                <div class="check-item"><input type="checkbox" id="down-dba-1"><label for="down-dba-1">Dba Profile</label></div>
-                <div class="check-item"><input type="checkbox" id="down-traffic-1"><label for="down-traffic-1">Traffic di BNG</label></div>
-                <div class="check-item"><input type="checkbox" id="down-ping-1"><label for="down-ping-1">Ping Google</label></div>
+                <div class="check-item"><input type="checkbox" id="down-ip-1"><label for="down-ip-1">IP Address</label>
+                </div>
+                <div class="check-item"><input type="checkbox" id="down-redaman-1"><label for="down-redaman-1">Redaman
+                        ONT</label></div>
+                <div class="check-item"><input type="checkbox" id="down-device-1"><label for="down-device-1">Device
+                        connected</label></div>
+                <div class="check-item"><input type="checkbox" id="down-wifi-1"><label for="down-wifi-1">Status Wifi
+                        Enable/ter-Reset </label></div>
+                <div class="check-item"><input type="checkbox" id="down-traffic-1"><label for="down-traffic-1">Traffic
+                        di BNG</label></div>
+                <div class="check-item"><input type="checkbox" id="down-ping-1"><label for="down-ping-1">Ping ONT dan
+                        Upstream</label></div>
             </div>
 
             <!-- Tombol Command -->
@@ -221,18 +252,24 @@
 
             <!-- Tombol Reset berada di bawah checklist -->
             <button class="reset-button" onclick="resetChecklist()">Reset</button>
+
+            <!-- Tombol untuk Capture Screenshot -->
+            <button class="reset-button" onclick="captureScreen('#notepad1')">Capture Screen notepad 1</button>
+            <button class="reset-button" onclick="captureScreen('#notepad2')">Capture Screen notepad 2</button>
         </div>
 
         <!-- Bagian Bawah untuk Dua Notepad -->
         <div class="bottom-section">
             <!-- Kolom Kiri untuk Notepad 1 -->
             <div class="notepad-column">
-                <textarea class="notepad" id="notepad1" placeholder="Catat hasil pengecekan di sini..." spellcheck="false" oninput="checkAutoChecklist()"></textarea>
+                <textarea class="notepad" id="notepad1" placeholder="Catat hasil pengecekan di sini..."
+                    spellcheck="false" oninput="checkAutoChecklist()"></textarea>
             </div>
 
             <!-- Kolom Kanan untuk Notepad 2 -->
             <div class="notepad-column">
-                <textarea class="notepad" id="notepad2" placeholder="Coret-coret bebas di sini..." spellcheck="false" oninput="checkAutoChecklist()"></textarea>
+                <textarea class="notepad" id="notepad2" placeholder="Coret-coret bebas di sini..." spellcheck="false"
+                    oninput="checkAutoChecklist()"></textarea>
             </div>
         </div>
     </div>
@@ -242,6 +279,9 @@
         <span class="close" onclick="closeModal()">&times;</span>
         <img class="modal-content" id="modalImage">
     </div>
+
+    <!-- Import html2canvas dari CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script>
         let checkedData = {
@@ -296,7 +336,7 @@
                 "down-ip": false,
                 "down-redaman": false,
                 "down-device": false,
-                "down-dba": false,
+                "down-wifi": false,
                 "down-traffic": false,
                 "down-ping": false
             };
@@ -308,17 +348,17 @@
             const combinedContent = notepadContent1 + " " + notepadContent2;
 
             const checklistItems = {
-                "inet-ip": ["ip address", "ip address inet", "inet ip","user ip address","ip", "IPAddr", "IPv4"],
+                "inet-ip": ["ip address", "ip address inet", "inet ip", "user ip address", "ip", "IPAddr", "IPv4"],
                 "inet-redaman": ["redaman", "rx", "tx", "dBm"],
                 "inet-device": ["device connected", "connected device", "device", "device total", "perangkat", "terhubung", "2.4G", "5G", "LAN", "ETH", "associate"],
                 "inet-dba": ["dba profile", "profile dba", "dba", "profile", "dba-profile", "dba-", "tcont"],
                 "inet-traffic": ["traffic di bng", "bng traffic", "trafik", "trafik BNG", "traffic", "speed", "bps", "kbyte/min"],
                 "inet-ping": ["ping google", "ping test", "ping", "-c -b -m", "count 100", "rapid", "repeat", "round-trip"],
 
-                "down-ip": ["ip address", "ip address inet", "inet ip","user ip address","ip", "IPAddr", "IPv4"],
+                "down-ip": ["ip address", "ip address inet", "inet ip", "user ip address", "ip", "IPAddr", "IPv4"],
                 "down-redaman": ["redaman", "rx", "tx", "dBm"],
                 "down-device": ["device connected", "connected device", "device", "device total", "perangkat", "terhubung", "2.4G", "5G", "LAN", "ETH", "associate"],
-                "down-dba": ["dba profile", "profile dba down"],
+                "down-wifi": ["dba profile", "profile dba down"],
                 "down-traffic": ["traffic di bng", "bng traffic", "trafik", "trafik BNG", "traffic", "speed", "bps", "kbyte/min"],
                 "down-ping": ["ping google", "ping test", "ping", "-c -b -m", "count 100", "rapid", "repeat", "round-trip"]
             };
@@ -333,7 +373,38 @@
                 }
             }
         }
+
+        // Capture screenshot of a specific element using html2canvas
+        function captureScreen(idElementThatYouWantToCaptureNicelyAndDontSurrenderKeepFireHUAHAHAHAHA) {
+            const element = document.querySelector(idElementThatYouWantToCaptureNicelyAndDontSurrenderKeepFireHUAHAHAHAHA); // Change this to the specific element you want to capture
+            html2canvas(element).then(function (canvas) {
+                // Convert canvas to image and display it in a modal or elsewhere
+                var img = canvas.toDataURL("image/png");
+                var modal = document.getElementById("myModal");
+                const modalImage = document.getElementById("modalImage");
+                modal.style.display = "block";
+                modalImage.src = img;
+
+                canvas.toBlob(function (blob) {
+                    if (navigator.clipboard && navigator.clipboard.write) {
+                        const item = new ClipboardItem({ "image/png": blob });
+                        navigator.clipboard.write([item])
+                            .then(() => {
+                                alert("Image copied to clipboard as PNG format!");
+                            })
+                            .catch(err => {
+                                console.error("Could not copy image to clipboard:", err);
+                                alert("Failed to copy image to clipboard. Please try again.");
+                            });
+                    } else {
+                        console.warn("Clipboard API not supported");
+                        alert("Clipboard API is not supported in this browser.");
+                    }
+                }, "image/png");
+            });
+        }
     </script>
 
 </body>
+
 </html>
