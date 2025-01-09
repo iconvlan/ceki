@@ -254,20 +254,20 @@
             <button class="reset-button" onclick="resetChecklist()">Reset</button>
 
             <!-- Tombol untuk Capture Screenshot -->
-            <button class="reset-button" onclick="captureScreen('#notepad1')">Capture Screen notepad 1</button>
-            <button class="reset-button" onclick="captureScreen('#notepad2')">Capture Screen notepad 2</button>
+            <button class="reset-button" onclick="captureScreen('area-notepad1', 'notepad1')">Capture Screen notepad 1</button>
+            <button class="reset-button" onclick="captureScreen('area-notepad2','notepad2')">Capture Screen notepad 2</button>
         </div>
 
         <!-- Bagian Bawah untuk Dua Notepad -->
         <div class="bottom-section">
             <!-- Kolom Kiri untuk Notepad 1 -->
-            <div class="notepad-column">
+            <div id="area-notepad1" class="notepad-column">
                 <textarea class="notepad" id="notepad1" placeholder="Catat hasil pengecekan di sini..."
                     spellcheck="false" oninput="checkAutoChecklist()"></textarea>
             </div>
 
             <!-- Kolom Kanan untuk Notepad 2 -->
-            <div class="notepad-column">
+            <div id="area-notepad2" class="notepad-column">
                 <textarea class="notepad" id="notepad2" placeholder="Coret-coret bebas di sini..." spellcheck="false"
                     oninput="checkAutoChecklist()"></textarea>
             </div>
@@ -374,23 +374,45 @@
             }
         }
 
-        // Capture screenshot of a specific element using html2canvas
-        function captureScreen(idElementThatYouWantToCaptureNicelyAndDontSurrenderKeepFireHUAHAHAHAHA) {
-            const element = document.querySelector(idElementThatYouWantToCaptureNicelyAndDontSurrenderKeepFireHUAHAHAHAHA); // Change this to the specific element you want to capture
-            html2canvas(element).then(function (canvas) {
-                // Convert canvas to image and display it in a modal or elsewhere
+        async function captureScreen(idTextareaContainer, idTextarea) {
+            const element = document.getElementById(idTextarea);
+            const captureArea = document.getElementById(idTextareaContainer);
+
+            const tempDiv = document.createElement('div');
+            tempDiv.style.cssText = `
+                width: ${element.offsetWidth}px;
+                height: ${element.offsetHeight}px;
+                border: ${getComputedStyle(element).border};
+                padding: ${getComputedStyle(element).padding};
+                font: ${getComputedStyle(element).font};
+                color: black;
+                white-space: pre-wrap; /* Preserve line breaks */
+                overflow-wrap: break-word; /* Wrap long text */
+                background: ${getComputedStyle(element).background};
+            `;
+            tempDiv.textContent = element.value;
+            captureArea.replaceChild(tempDiv, element);
+
+
+            // ======================================================
+            html2canvas(captureArea).then(function (canvas) {
+                // Restore the original textarea after capturing
+                captureArea.replaceChild(element, tempDiv);
+
+                // Convert canvas to image and display it in a modal
                 var img = canvas.toDataURL("image/png");
                 var modal = document.getElementById("myModal");
                 const modalImage = document.getElementById("modalImage");
                 modal.style.display = "block";
                 modalImage.src = img;
 
+                // Copy the image to the clipboard
                 canvas.toBlob(function (blob) {
                     if (navigator.clipboard && navigator.clipboard.write) {
                         const item = new ClipboardItem({ "image/png": blob });
                         navigator.clipboard.write([item])
                             .then(() => {
-                                alert("Image copied to clipboard as PNG format!");
+                                console.log("Image copied to clipboard as PNG format!");
                             })
                             .catch(err => {
                                 console.error("Could not copy image to clipboard:", err);
@@ -402,6 +424,32 @@
                     }
                 }, "image/png");
             });
+
+            // html2canvas(element).then(function (canvas) {
+            //     // Convert canvas to image and display it in a modal or elsewhere
+            //     var img = canvas.toDataURL("image/png");
+            //     var modal = document.getElementById("myModal");
+            //     const modalImage = document.getElementById("modalImage");
+            //     modal.style.display = "block";
+            //     modalImage.src = img;
+
+            //     canvas.toBlob(function (blob) {
+            //         if (navigator.clipboard && navigator.clipboard.write) {
+            //             const item = new ClipboardItem({ "image/png": blob });
+            //             navigator.clipboard.write([item])
+            //                 .then(() => {
+            //                     // alert("Image copied to clipboard as PNG format!");
+            //                 })
+            //                 .catch(err => {
+            //                     console.error("Could not copy image to clipboard:", err);
+            //                     alert("Failed to copy image to clipboard. Please try again.");
+            //                 });
+            //         } else {
+            //             console.warn("Clipboard API not supported");
+            //             alert("Clipboard API is not supported in this browser.");
+            //         }
+            //     }, "image/png");
+            // });
         }
     </script>
 
