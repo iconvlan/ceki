@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist Pengecekan Jaringan</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        h1 {
+            text-align: center;
+            padding: 10px;
+            font-size: 1.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            margin-bottom: 10px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 50px);
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        .top-section {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+        }
+        .checklist-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            text-align: center;
+            justify-content: center;
+        }
+        .check-item {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .check-item input {
+            margin-right: 8px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 15px;
+        }
+        .command-button {
+            padding: 10px 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+        .command-button:hover {
+            background-color: #45a049;
+        }
+        .reset-button {
+            padding: 10px 18px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+        .reset-button:hover {
+            background-color: #e53935;
+        }
+        .bottom-section {
+            display: flex;
+            height: 100%;
+            gap: 10px;
+        }
+        .notepad-column {
+            width: 50%;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .notepad {
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            font-family: 'Courier', monospace;
+            font-size: 1rem;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background-color: #f4f4f4;
+            resize: vertical;
+            box-sizing: border-box;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Checklist Pengecekan Jaringan</h1>
+
+    <div class="container">
+        <!-- Bagian Atas untuk Checklist -->
+        <div class="top-section">
+            <div class="dropdown">
+                <label for="category">Pilih Kategori:</label>
+                <select id="category" onchange="toggleChecklist()">
+                    <option value="">-- Pilih --</option>
+                    <option value="inet-slow">Inet Slow/Intermitten</option>
+                    <option value="inet-down">Inet Down</option>
+                </select>
+            </div>
+
+            <div id="inet-slow" class="checklist-container" style="display: none;">
+                <h2 style="font-size: 1.1rem;">Tiket: Inet Slow/Intermitten</h2>
+                <div class="check-item"><input type="checkbox" id="inet-ip-1"><label for="inet-ip-1">IP Address</label></div>
+                <div class="check-item"><input type="checkbox" id="inet-redaman-1"><label for="inet-redaman-1">Redaman ONT</label></div>
+                <div class="check-item"><input type="checkbox" id="inet-device-1"><label for="inet-device-1">Device connected</label></div>
+                <div class="check-item"><input type="checkbox" id="inet-dba-1"><label for="inet-dba-1">Dba Profile</label></div>
+                <div class="check-item"><input type="checkbox" id="inet-traffic-1"><label for="inet-traffic-1">Traffic di BNG</label></div>
+                <div class="check-item"><input type="checkbox" id="inet-ping-1"><label for="inet-ping-1">Ping Google</label></div>
+            </div>
+
+            <div id="inet-down" class="checklist-container" style="display: none;">
+                <h2 style="font-size: 1.1rem;">Tiket: Inet Down</h2>
+                <div class="check-item"><input type="checkbox" id="down-ip-1"><label for="down-ip-1">IP Address</label></div>
+                <div class="check-item"><input type="checkbox" id="down-redaman-1"><label for="down-redaman-1">Redaman ONT</label></div>
+                <div class="check-item"><input type="checkbox" id="down-device-1"><label for="down-device-1">Device connected</label></div>
+                <div class="check-item"><input type="checkbox" id="down-dba-1"><label for="down-dba-1">Dba Profile</label></div>
+                <div class="check-item"><input type="checkbox" id="down-traffic-1"><label for="down-traffic-1">Traffic di BNG</label></div>
+                <div class="check-item"><input type="checkbox" id="down-ping-1"><label for="down-ping-1">Ping Google</label></div>
+            </div>
+
+            <!-- Tombol Command -->
+            <div class="button-container">
+                <button class="command-button" onclick="showImage('olt.jpg')">Command Pengecekan OLT</button>
+                <button class="command-button" onclick="showImage('upe.jpg')">Command Pengecekan UPE</button>
+                <button class="command-button" onclick="showImage('bng.jpg')">Command Pengecekan BNG</button>
+            </div>
+
+            <!-- Tombol Reset berada di bawah checklist -->
+            <button class="reset-button" onclick="resetChecklist()">Reset</button>
+        </div>
+
+        <!-- Bagian Bawah untuk Dua Notepad -->
+        <div class="bottom-section">
+            <!-- Kolom Kiri untuk Notepad 1 -->
+            <div class="notepad-column">
+                <textarea class="notepad" id="notepad1" placeholder="Catat hasil pengecekan di sini..." spellcheck="false" oninput="checkAutoChecklist()"></textarea>
+            </div>
+
+            <!-- Kolom Kanan untuk Notepad 2 -->
+            <div class="notepad-column">
+                <textarea class="notepad" id="notepad2" placeholder="Coret-coret bebas di sini..." spellcheck="false" oninput="checkAutoChecklist()"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk menampilkan gambar -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        let checkedData = {
+            "inet-ip": false,
+            "inet-redaman": false,
+            "inet-device": false,
+            "inet-dba": false,
+            "inet-traffic": false,
+            "inet-ping": false,
+            "down-ip": false,
+            "down-redaman": false,
+            "down-device": false,
+            "down-dba": false,
+            "down-traffic": false,
+            "down-ping": false
+        };
+
+        function toggleChecklist() {
+            const category = document.getElementById("category").value;
+            document.getElementById("inet-slow").style.display = category === "inet-slow" ? "flex" : "none";
+            document.getElementById("inet-down").style.display = category === "inet-down" ? "flex" : "none";
+        }
+
+        function showImage(imageSrc) {
+            const modal = document.getElementById("myModal");
+            const modalImage = document.getElementById("modalImage");
+            modal.style.display = "block";
+            modalImage.src = imageSrc;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        function resetChecklist() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+
+            document.getElementById("notepad1").value = "";
+            document.getElementById("notepad2").value = "";
+
+            checkedData = {
+                "inet-ip": false,
+                "inet-redaman": false,
+                "inet-device": false,
+                "inet-dba": false,
+                "inet-traffic": false,
+                "inet-ping": false,
+                "down-ip": false,
+                "down-redaman": false,
+                "down-device": false,
+                "down-dba": false,
+                "down-traffic": false,
+                "down-ping": false
+            };
+        }
+
+        function checkAutoChecklist() {
+            const notepadContent1 = document.getElementById("notepad1").value;
+            const notepadContent2 = document.getElementById("notepad2").value;
+            const combinedContent = notepadContent1 + " " + notepadContent2;
+
+            const checklistItems = {
+                "inet-ip": /ip address/i,
+                "inet-redaman": /redaman/i,
+                "inet-device": /device connected/i,
+                "inet-dba": /dba profile/i,
+                "inet-traffic": /traffic di bng/i,
+                "inet-ping": /ping google/i,
+                "down-ip": /ip address/i,
+                "down-redaman": /redaman/i,
+                "down-device": /device connected/i,
+                "down-dba": /dba profile/i,
+                "down-traffic": /traffic di bng/i,
+                "down-ping": /ping google/i
+            };
+
+            for (const [id, regex] of Object.entries(checklistItems)) {
+                const checkbox = document.getElementById(id + "-1");
+                if (regex.test(combinedContent)) {
+                    checkedData[id] = true;
+                    checkbox.checked = true;
+                } else {
+                    checkbox.checked = false;
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
