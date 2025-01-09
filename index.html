@@ -91,7 +91,7 @@
             gap: 10px;
         }
         .notepad-column {
-            width: 50%;
+            width: 48%; /* Adjusted width */
             background-color: rgba(0, 0, 0, 0.6);
             padding: 10px;
             border-radius: 8px;
@@ -148,6 +148,30 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        /* Media Query untuk layar kecil */
+    @media (max-width: 768px) {
+        .notepad-column {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .button-container {
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 1.2rem;
+        }
+        .container {
+            padding: 10px;
+        }
+        .checklist-container {
+            flex-direction: column;
+        }
+    }
+
     </style>
 </head>
 <body>
@@ -282,23 +306,23 @@
             const combinedContent = notepadContent1 + " " + notepadContent2;
 
             const checklistItems = {
-                "inet-ip": /ip address/i,
-                "inet-redaman": /redaman/i,
-                "inet-device": /device connected/i,
-                "inet-dba": /dba profile/i,
-                "inet-traffic": /traffic di bng/i,
-                "inet-ping": /ping google/i,
-                "down-ip": /ip address/i,
-                "down-redaman": /redaman/i,
-                "down-device": /device connected/i,
-                "down-dba": /dba profile/i,
-                "down-traffic": /traffic di bng/i,
-                "down-ping": /ping google/i
+                "inet-ip": ["ip address", "ip address inet", "inet ip"],
+                "inet-redaman": ["redaman", "reset ont"],
+                "inet-device": ["device connected", "connected device"],
+                "inet-dba": ["dba profile", "profile dba"],
+                "inet-traffic": ["traffic di bng", "bng traffic"],
+                "inet-ping": ["ping google", "ping test"],
+                "down-ip": ["ip address", "inet down", "ip down"],
+                "down-redaman": ["redaman", "reset ont down"],
+                "down-device": ["device connected", "device down"],
+                "down-dba": ["dba profile", "profile dba down"],
+                "down-traffic": ["traffic di bng", "bng down"],
+                "down-ping": ["ping google", "ping fail"]
             };
 
-            for (const [id, regex] of Object.entries(checklistItems)) {
+            for (const [id, keywords] of Object.entries(checklistItems)) {
                 const checkbox = document.getElementById(id + "-1");
-                if (regex.test(combinedContent)) {
+                if (keywords.some(keyword => combinedContent.toLowerCase().includes(keyword))) {
                     checkedData[id] = true;
                     checkbox.checked = true;
                 } else {
